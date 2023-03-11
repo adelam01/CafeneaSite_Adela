@@ -10,7 +10,7 @@ using CafeneaSite.Models;
 
 namespace CafeneaSite.Pages.Cafele
 {
-    public class DeleteModel : PageModel
+    public class DeleteModel : PageModel 
     {
         private readonly CafeneaSite.Data.CafeneaSiteContext _context;
 
@@ -29,7 +29,13 @@ namespace CafeneaSite.Pages.Cafele
                 return NotFound();
             }
 
-            var cafea = await _context.Cafea.FirstOrDefaultAsync(m => m.ID == id);
+            var cafea = await _context.Cafea
+                .Include(c => c.TipCafea)
+                .Include(c => c.TipBoabe)
+                .Include(c => c.TipLapte)
+                .Include(c => c.TipAroma)
+                .Include(c => c.TipTopping)
+                .FirstOrDefaultAsync(m => m.ID == id);
 
             if (cafea == null)
             {
