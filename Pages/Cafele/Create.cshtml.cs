@@ -45,6 +45,22 @@ namespace CafeneaSite.Pages.Cafele
             });
             ViewData["TipLapteID"] = new SelectList(listaTipLapte, "ID", "DenumireLapte");
 
+            // POPULARE VIEWDATA - TIP AROMA
+            var listaTipAroma = _context.TipAroma.Select(x => new
+            {
+                x.ID,
+                x.DenumireAroma
+            });
+            ViewData["TipAromaID"] = new SelectList(listaTipAroma, "ID", "DenumireAroma");
+
+            // POPULARE VIEWDATA - TIP TOPPING
+            var listaTipTopping = _context.TipTopping.Select(x => new
+            {
+                x.ID,
+                x.DenumireTopping
+            });
+            ViewData["TipToppingID"] = new SelectList(listaTipTopping, "ID", "DenumireTopping");
+
             return Page();
         }
 

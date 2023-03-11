@@ -25,7 +25,18 @@ namespace CafeneaSite.Models
 
         //Cheie straina si navigation propery pentru Lapte
         public int? TipLapteID { get; set; }
+        [Display(Name = "Tip Lapte")]
         public TipLapte? TipLapte { get; set; }
+
+        //Cheie straina si navigation propery pentru Arome
+        public int? TipAromaID { get; set; }
+        [Display(Name = "Tip Aroma")]
+        public TipAroma? TipAroma { get; set; }
+
+        //Cheie straina si navigation propery pentru Arome
+        public int? TipToppingID { get; set; }
+        [Display(Name = "Tip Topping")]
+        public TipTopping? TipTopping { get; set; }
 
 
         [Column(TypeName = "decimal(6, 2)")]

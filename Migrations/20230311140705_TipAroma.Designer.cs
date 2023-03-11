@@ -4,6 +4,7 @@ using CafeneaSite.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CafeneaSite.Migrations
 {
     [DbContext(typeof(CafeneaSiteContext))]
-    partial class CafeneaSiteContextModelSnapshot : ModelSnapshot
+    [Migration("20230311140705_TipAroma")]
+    partial class TipAroma
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,9 +51,6 @@ namespace CafeneaSite.Migrations
                     b.Property<int?>("TipLapteID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TipToppingID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
 
                     b.HasIndex("TipAromaID");
@@ -61,8 +60,6 @@ namespace CafeneaSite.Migrations
                     b.HasIndex("TipCafeaID");
 
                     b.HasIndex("TipLapteID");
-
-                    b.HasIndex("TipToppingID");
 
                     b.ToTable("Cafea");
                 });
@@ -135,23 +132,6 @@ namespace CafeneaSite.Migrations
                     b.ToTable("TipLapte");
                 });
 
-            modelBuilder.Entity("CafeneaSite.Models.TipTopping", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
-
-                    b.Property<string>("DenumireTopping")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("TipTopping");
-                });
-
             modelBuilder.Entity("CafeneaSite.Models.Cafea", b =>
                 {
                     b.HasOne("CafeneaSite.Models.TipAroma", "TipAroma")
@@ -170,10 +150,6 @@ namespace CafeneaSite.Migrations
                         .WithMany("Cafele")
                         .HasForeignKey("TipLapteID");
 
-                    b.HasOne("CafeneaSite.Models.TipTopping", "TipTopping")
-                        .WithMany("Cafele")
-                        .HasForeignKey("TipToppingID");
-
                     b.Navigation("TipAroma");
 
                     b.Navigation("TipBoabe");
@@ -181,8 +157,6 @@ namespace CafeneaSite.Migrations
                     b.Navigation("TipCafea");
 
                     b.Navigation("TipLapte");
-
-                    b.Navigation("TipTopping");
                 });
 
             modelBuilder.Entity("CafeneaSite.Models.TipAroma", b =>
@@ -201,11 +175,6 @@ namespace CafeneaSite.Migrations
                 });
 
             modelBuilder.Entity("CafeneaSite.Models.TipLapte", b =>
-                {
-                    b.Navigation("Cafele");
-                });
-
-            modelBuilder.Entity("CafeneaSite.Models.TipTopping", b =>
                 {
                     b.Navigation("Cafele");
                 });

@@ -44,6 +44,22 @@
                 <span asp-validation-for="Cafea.TipLapteID" class="text-danger"></span>
             </div>
 
+            <!--DROPDOWNLIST PENTRU TIP AROMA-->
+            <div class="form-group">
+                <label asp-for="Cafea.TipAromaID" class="control-label">Tip Aroma</label>
+                <select asp-for="Cafea.TipAromaID" class="form-control" asp-items="ViewBag.TipAromaID">
+                </select>
+                <span asp-validation-for="Cafea.TipAromaID" class="text-danger"></span>
+            </div>
+
+            <!--DROPDOWNLIST PENTRU TIP AROMA-->
+            <div class="form-group">
+                <label asp-for="Cafea.TipToppingID" class="control-label">Tip Topping</label>
+                <select asp-for="Cafea.TipToppingID" class="form-control" asp-items="ViewBag.TipToppingID">
+                </select>
+                <span asp-validation-for="Cafea.TipToppingID" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="Cafea.Pret" class="control-label"></label>
                 <input asp-for="Cafea.Pret" class="form-control" />

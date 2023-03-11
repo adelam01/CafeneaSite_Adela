@@ -26,6 +26,12 @@
                 @Html.DisplayNameFor(model => model.Cafea[0].TipLapte)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Cafea[0].TipAroma)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cafea[0].TipTopping)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Cafea[0].Pret)
             </th>
             <th></th>
@@ -45,6 +51,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TipLapte.DenumireLapte)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipAroma.DenumireAroma)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipTopping.DenumireTopping)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Pret)

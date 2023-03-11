@@ -34,6 +34,8 @@ namespace CafeneaSite.Pages.Cafele
                 .Include(b => b.TipCafea)
                 .Include(b => b.TipBoabe)
                 .Include(b => b.TipLapte)
+                .Include(b => b.TipAroma)
+                .Include(b => b.TipTopping)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ID == id);
 
@@ -66,6 +68,22 @@ namespace CafeneaSite.Pages.Cafele
             });
             ViewData["TipLapteID"] = new SelectList(listaTipLapte, "ID", "DenumireLapte");
 
+            // POPULARE VIEW DATA - TIP CAFEA
+            var listaTipAroma = _context.TipAroma.Select(x => new
+            {
+                x.ID,
+                x.DenumireAroma
+            });
+            ViewData["TipAromaID"] = new SelectList(listaTipAroma, "ID", "DenumireAroma");
+
+            // POPULARE VIEW DATA - TIP TOPPING
+            var listaTipTopping = _context.TipTopping.Select(x => new
+            {
+                x.ID,
+                x.DenumireTopping
+            });
+            ViewData["TipToppingID"] = new SelectList(listaTipTopping, "ID", "DenumireTopping");
+
             return Page();
         }
 
@@ -81,7 +99,9 @@ namespace CafeneaSite.Pages.Cafele
             var cafeaActualizare = await _context.Cafea
                 .Include(i => i.TipCafea)
                 .Include(i => i.TipBoabe)
-                .Include(i => i.TipLapte)   
+                .Include(i => i.TipLapte) 
+                .Include(i => i.TipAroma)
+                .Include(i => i.TipTopping)
                 .FirstOrDefaultAsync(s => s.ID == id);
 
             if (cafeaActualizare == null)
@@ -93,7 +113,7 @@ namespace CafeneaSite.Pages.Cafele
             cafeaActualizare,
             "Cafea",
             i => i.DenumireCafea, i => i.TipCafeaID, i => i.TipBoabeID,
-            i => i.TipLapteID, i => i.Pret))
+            i => i.TipLapteID, i => i.TipAromaID, i => i.TipToppingID, i => i.Pret))
             {
                 //cafeaActualizare(_context, cafeaActualizare);
                 await _context.SaveChangesAsync();
