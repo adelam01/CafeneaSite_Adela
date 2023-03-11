@@ -32,6 +32,7 @@ namespace CafeneaSite.Pages.Cafele
 
             Cafea = await _context.Cafea
                 .Include(b => b.TipCafea)
+                .Include(b => b.TipBoabe)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ID == id);
 
@@ -48,6 +49,14 @@ namespace CafeneaSite.Pages.Cafele
             });
             ViewData["TipCafeaID"] = new SelectList(listaTipCafea, "ID", "Tip");
 
+            // POPULARE VIEW DATA - TIP CAFEA
+            var listaTipBoabe = _context.TipBoabe.Select(x => new
+            {
+                x.ID,
+                x.DenumireBoabe
+            });
+            ViewData["TipBoabeID"] = new SelectList(listaTipBoabe, "ID", "DenumireBoabe");
+
             return Page();
         }
 
@@ -62,6 +71,7 @@ namespace CafeneaSite.Pages.Cafele
 
             var cafeaActualizare = await _context.Cafea
                 .Include(i => i.TipCafea)
+                .Include(i => i.TipBoabe)
                 .FirstOrDefaultAsync(s => s.ID == id);
 
             if (cafeaActualizare == null)
@@ -72,7 +82,7 @@ namespace CafeneaSite.Pages.Cafele
             if (await TryUpdateModelAsync<Cafea>(
             cafeaActualizare,
             "Cafea",
-            i => i.DenumireCafea, i => i.TipCafeaID,
+            i => i.DenumireCafea, i => i.TipCafeaID, i => i.TipBoabeID,
             i => i.Pret))
             {
                 //cafeaActualizare(_context, cafeaActualizare);

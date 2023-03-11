@@ -28,6 +28,14 @@
                 <span asp-validation-for="Cafea.TipCafeaID" class="text-danger"></span>
             </div>
 
+            <!--DROPDOWNLIST PENTRU TIP BOABE-->
+            <div class="form-group">
+                <label asp-for="Cafea.TipBoabeID" class="control-label">Tip Boabe</label>
+                <select asp-for="Cafea.TipBoabeID" class="form-control" asp-items="ViewBag.TipBoabeID">
+                </select>
+                <span asp-validation-for="Cafea.TipBoabeID" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="Cafea.Pret" class="control-label"></label>
                 <input asp-for="Cafea.Pret" class="form-control" />

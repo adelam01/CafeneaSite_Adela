@@ -20,6 +20,9 @@
                 @Html.DisplayNameFor(model => model.Cafea[0].TipCafea)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Cafea[0].TipBoabe)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Cafea[0].Pret)
             </th>
             <th></th>
@@ -33,6 +36,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TipCafea.Tip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipBoabe.DenumireBoabe)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Pret)

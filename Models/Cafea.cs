@@ -18,6 +18,10 @@ namespace CafeneaSite.Models
         [Display(Name = "Tip Cafea")]
         public TipCafea? TipCafea { get; set; }
 
+        public int? TipBoabeID { get; set; }
+        [Display(Name = "Tip Boabe")]
+        public TipBoabe? TipBoabe { get; set; }
+
 
         [Column(TypeName = "decimal(6, 2)")]
         public decimal Pret { get; set; }
