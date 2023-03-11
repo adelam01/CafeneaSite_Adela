@@ -28,6 +28,7 @@ namespace CafeneaSite.Pages.Cafele
                 x.Tip
             });
             ViewData["TipCafeaID"] = new SelectList(listaTipCafea, "ID", "Tip");
+
             return Page();
         }
 
@@ -38,10 +39,6 @@ namespace CafeneaSite.Pages.Cafele
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid)
-            {
-                return Page();
-            }
 
             _context.Cafea.Add(Cafea);
             await _context.SaveChangesAsync();

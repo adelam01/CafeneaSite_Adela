@@ -14,9 +14,9 @@ namespace CafeneaSite.Models
         public string DenumireCafea { get; set; }
 
         //Cheie straina si navigation propery pentru TipCafea
-        public int TipCafeaID { get; set; }
+        public int? TipCafeaID { get; set; }
         [Display(Name = "Tip Cafea")]
-        public TipCafea TipCafea { get; set; }
+        public TipCafea? TipCafea { get; set; }
 
 
         [Column(TypeName = "decimal(6, 2)")]

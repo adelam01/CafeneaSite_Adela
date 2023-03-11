@@ -25,17 +25,20 @@ namespace CafeneaSite.Pages.Cafele
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Cafea == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var cafea =  await _context.Cafea.FirstOrDefaultAsync(m => m.ID == id);
-            if (cafea == null)
+            Cafea = await _context.Cafea
+                .Include(b => b.TipCafea)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+            if (Cafea == null)
             {
                 return NotFound();
             }
-            Cafea = cafea;
 
             // POPULARE VIEW DATA - TIP CAFEA
             var listaTipCafea = _context.TipCafea.Select(x => new
@@ -50,37 +53,35 @@ namespace CafeneaSite.Pages.Cafele
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (!ModelState.IsValid)
+            if (id == null)
             {
-                return Page();
+                return NotFound();
             }
 
-            _context.Attach(Cafea).State = EntityState.Modified;
+            var cafeaActualizare = await _context.Cafea
+                .Include(i => i.TipCafea)
+                .FirstOrDefaultAsync(s => s.ID == id);
 
-            try
+            if (cafeaActualizare == null)
             {
+                return NotFound();
+            }
+
+            if (await TryUpdateModelAsync<Cafea>(
+            cafeaActualizare,
+            "Cafea",
+            i => i.DenumireCafea, i => i.TipCafeaID,
+            i => i.Pret))
+            {
+                //cafeaActualizare(_context, cafeaActualizare);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CafeaExists(Cafea.ID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToPage("./Index");
             }
 
-            return RedirectToPage("./Index");
-        }
 
-        private bool CafeaExists(int id)
-        {
-          return _context.Cafea.Any(e => e.ID == id);
+            return Page();
         }
     }
 }
