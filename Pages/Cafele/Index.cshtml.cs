@@ -19,20 +19,46 @@ namespace CafeneaSite.Pages.Cafele
             _context = context;
         }
 
-        public IList<Cafea> Cafea { get;set; } = default!;
+        public IList<Cafea> Cafea { get; set; } = default!;
+        public CafeaData CafeaD { get; set; }
+        public int CafeaID { get; set; }
 
-        public async Task OnGetAsync()
+        // PENTRU CAUTARE - SEARCH STRING
+        public string CurrentFilter { get; set; }
+
+        public async Task OnGetAsync(int? id, string searchString)
         {
-            if (_context.Cafea != null)
+            CafeaD = new CafeaData();
+            CurrentFilter = searchString;
+
+            CafeaD.Cafele = await _context.Cafea
+                .Include(b => b.TipCafea)
+                .Include(b => b.TipBoabe)
+                .Include(b => b.TipLapte)
+                .Include(b => b.TipAroma)
+                .Include(b => b.TipTopping)
+                .ToListAsync();
+
+
+            if (!String.IsNullOrEmpty(searchString))
             {
-                Cafea = await _context.Cafea
-                    .Include(b => b.TipCafea)
-                    .Include(b => b.TipBoabe)
-                    .Include(b => b.TipLapte)
-                    .Include(b => b.TipAroma)
-                    .Include(b => b.TipTopping)
-                    .ToListAsync();
+                CafeaD.Cafele = CafeaD.Cafele.Where(s => s.TipCafea.Tip.Contains(searchString)
+
+               || s.TipBoabe.DenumireBoabe.Contains(searchString)
+               || s.TipLapte.DenumireLapte.Contains(searchString)
+               || s.TipAroma.DenumireAroma.Contains(searchString)
+               || s.TipTopping.DenumireTopping.Contains(searchString)
+               || s.DenumireCafea.Contains(searchString));
             }
-        }
+
+            if (id != null)
+            {
+                CafeaID = id.Value;
+                Cafea Serviciu = CafeaD.Cafele
+                .Where(i => i.ID == id.Value).Single();
+            }
+
+
+            }
     }
 }
