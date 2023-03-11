@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CafeneaSite.Data;
 using CafeneaSite.Models;
 
-namespace CafeneaSite.Pages.Cafele
+namespace CafeneaSite.Pages.TipuriCafele
 {
     public class IndexModel : PageModel
     {
@@ -19,15 +19,13 @@ namespace CafeneaSite.Pages.Cafele
             _context = context;
         }
 
-        public IList<Cafea> Cafea { get;set; } = default!;
+        public IList<TipCafea> TipCafea { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.Cafea != null)
+            if (_context.TipCafea != null)
             {
-                Cafea = await _context.Cafea
-                    .Include(b => b.TipCafea)
-                    .ToListAsync();
+                TipCafea = await _context.TipCafea.ToListAsync();
             }
         }
     }

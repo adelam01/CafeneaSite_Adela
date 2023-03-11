@@ -15,5 +15,7 @@ namespace CafeneaSite.Data
         }
 
         public DbSet<CafeneaSite.Models.Cafea> Cafea { get; set; } = default!;
+
+        public DbSet<CafeneaSite.Models.TipCafea> TipCafea { get; set; }
     }
 }

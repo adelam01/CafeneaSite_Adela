@@ -18,11 +18,15 @@
                 <input asp-for="Cafea.DenumireCafea" class="form-control" />
                 <span asp-validation-for="Cafea.DenumireCafea" class="text-danger"></span>
             </div>
+
+            <!--DROPDOWNLIST PENTRU TIP CAFEA-->
             <div class="form-group">
-                <label asp-for="Cafea.TipCafea" class="control-label"></label>
-                <input asp-for="Cafea.TipCafea" class="form-control" />
-                <span asp-validation-for="Cafea.TipCafea" class="text-danger"></span>
+                <label asp-for="Cafea.TipCafeaID" class="control-label">Tip Cafea</label>
+                <select asp-for="Cafea.TipCafeaID" class="form-control" asp-items="ViewBag.TipCafeaID">
+                </select>
+                <span asp-validation-for="Cafea.TipCafeaID" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Cafea.Pret" class="control-label"></label>
                 <input asp-for="Cafea.Pret" class="form-control" />

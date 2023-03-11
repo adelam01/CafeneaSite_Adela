@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using CafeneaSite.Data;
 using CafeneaSite.Models;
 
-namespace CafeneaSite.Pages.Cafele
+namespace CafeneaSite.Pages.TipuriCafele
 {
     public class EditModel : PageModel
     {
@@ -21,30 +21,21 @@ namespace CafeneaSite.Pages.Cafele
         }
 
         [BindProperty]
-        public Cafea Cafea { get; set; } = default!;
+        public TipCafea TipCafea { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Cafea == null)
+            if (id == null || _context.TipCafea == null)
             {
                 return NotFound();
             }
 
-            var cafea =  await _context.Cafea.FirstOrDefaultAsync(m => m.ID == id);
-            if (cafea == null)
+            var tipcafea =  await _context.TipCafea.FirstOrDefaultAsync(m => m.ID == id);
+            if (tipcafea == null)
             {
                 return NotFound();
             }
-            Cafea = cafea;
-
-            // POPULARE VIEW DATA - TIP CAFEA
-            var listaTipCafea = _context.TipCafea.Select(x => new
-            {
-                x.ID,
-                x.Tip
-            });
-            ViewData["TipCafeaID"] = new SelectList(listaTipCafea, "ID", "Tip");
-
+            TipCafea = tipcafea;
             return Page();
         }
 
@@ -57,7 +48,7 @@ namespace CafeneaSite.Pages.Cafele
                 return Page();
             }
 
-            _context.Attach(Cafea).State = EntityState.Modified;
+            _context.Attach(TipCafea).State = EntityState.Modified;
 
             try
             {
@@ -65,7 +56,7 @@ namespace CafeneaSite.Pages.Cafele
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CafeaExists(Cafea.ID))
+                if (!TipCafeaExists(TipCafea.ID))
                 {
                     return NotFound();
                 }
@@ -78,9 +69,9 @@ namespace CafeneaSite.Pages.Cafele
             return RedirectToPage("./Index");
         }
 
-        private bool CafeaExists(int id)
+        private bool TipCafeaExists(int id)
         {
-          return _context.Cafea.Any(e => e.ID == id);
+          return _context.TipCafea.Any(e => e.ID == id);
         }
     }
 }

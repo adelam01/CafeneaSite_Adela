@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Microsoft.CodeAnalysis.Differencing;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
@@ -12,8 +13,11 @@ namespace CafeneaSite.Models
         [Display(Name = "Denumire Cafea")]
         public string DenumireCafea { get; set; }
 
+        //Cheie straina si navigation propery pentru TipCafea
+        public int TipCafeaID { get; set; }
         [Display(Name = "Tip Cafea")]
-        public string TipCafea { get; set;}
+        public TipCafea TipCafea { get; set; }
+
 
         [Column(TypeName = "decimal(6, 2)")]
         public decimal Pret { get; set; }

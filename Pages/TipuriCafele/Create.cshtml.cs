@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using CafeneaSite.Data;
 using CafeneaSite.Models;
 
-namespace CafeneaSite.Pages.Cafele
+namespace CafeneaSite.Pages.TipuriCafele
 {
     public class CreateModel : PageModel
     {
@@ -21,18 +21,11 @@ namespace CafeneaSite.Pages.Cafele
 
         public IActionResult OnGet()
         {
-            // POPULARE VIEWDATA - TIP CAFEA
-            var listaTipCafea = _context.TipCafea.Select(x => new
-            {
-                x.ID,
-                x.Tip
-            });
-            ViewData["TipCafeaID"] = new SelectList(listaTipCafea, "ID", "Tip");
             return Page();
         }
 
         [BindProperty]
-        public Cafea Cafea { get; set; }
+        public TipCafea TipCafea { get; set; }
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
@@ -43,7 +36,7 @@ namespace CafeneaSite.Pages.Cafele
                 return Page();
             }
 
-            _context.Cafea.Add(Cafea);
+            _context.TipCafea.Add(TipCafea);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
