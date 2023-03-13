@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using CafeneaSite.Data;
 using CafeneaSite.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace CafeneaSite.Pages.TipuriLapte
 {
+    [Authorize(Roles = "Admin")]
     public class CreateModel : PageModel
     {
         private readonly CafeneaSite.Data.CafeneaSiteContext _context;

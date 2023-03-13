@@ -11,6 +11,8 @@ namespace CafeneaSite.Models
         public int ID { get; set; }
 
         [Display(Name = "Denumire Cafea")]
+        [RegularExpression(@"^[A-Z]+[a-z\s]*$", ErrorMessage = "Denumirea cafelei trebuie să înceapă cu majusculă și să aibă o lungime minimă de caractere 3")]
+        [StringLength(70, MinimumLength = 3)]
         public string DenumireCafea { get; set; }
 
         //Cheie straina si navigation propery pentru TipCafea
@@ -40,6 +42,7 @@ namespace CafeneaSite.Models
 
 
         [Column(TypeName = "decimal(6, 2)")]
+        [Range(0.01, 100, ErrorMessage ="Prețul trebuie să fie cuprins între 0.01 și 100")]
         public decimal Pret { get; set; }
 
     }

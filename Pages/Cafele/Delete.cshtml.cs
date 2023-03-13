@@ -7,9 +7,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using CafeneaSite.Data;
 using CafeneaSite.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace CafeneaSite.Pages.Cafele
 {
+    [Authorize(Roles = "Admin")]
+
     public class DeleteModel : PageModel 
     {
         private readonly CafeneaSite.Data.CafeneaSiteContext _context;

@@ -12,7 +12,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Cafele/Index">Cafenea</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index">Cafenea</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,24 +20,53 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/TipuriCafele/Index">Tip Cafea</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/PaginiPentruClienti/CreateYourCoffee">Create Your Coffee</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/TipuriBoabe/Index">Tip Boabe</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/PaginiPentruClienti/About">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/TipuriLapte/Index">Tip Lapte</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/PaginiPentruClienti/Reservation">Reservation</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/TipuriArome/Index">Tip Aroma</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/TipuriToppinguri/Index">Tip Topping</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Membrii/Index">Membrii</a>
-                        </li>
+
+                        @if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <select onchange="location = this.value;">
+                                <option value="">Administrator</option>
+                                <option value="/TipuriCafele/Index">Tip Cafea</option>
+                                <option value="/TipuriBoabe/Index">Tip Boabe</option>
+                                <option value="/TipuriLapte/Index">Tip Lapte</option>
+                                <option value="/TipuriArome/Index">Tip Aroma</option>
+                                <option value="/TipuriToppinguri/Index">Tip Topping</option>
+                            </select>
+
+                            <!--
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/TipuriCafele/Index">Tip Cafea</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/TipuriBoabe/Index">Tip Boabe</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/TipuriLapte/Index">Tip Lapte</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/TipuriArome/Index">Tip Aroma</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/TipuriToppinguri/Index">Tip Topping</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Membrii/Index">Membrii</a>
+                            </li>
+                            -->
+
+                        }
+                       
+
                     </ul>
+                    <partial name="_LoginPartial" />
+
                 </div>
             </div>
         </nav>
