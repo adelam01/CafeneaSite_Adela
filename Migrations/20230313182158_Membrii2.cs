@@ -4,7 +4,7 @@
 
 namespace CafeneaSite.Migrations
 {
-    public partial class AllAtOncee : Migration
+    public partial class Membrii2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

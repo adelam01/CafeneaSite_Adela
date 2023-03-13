@@ -8,7 +8,7 @@ namespace CafeneaSite.Models
         public int ID { get; set; }
 
         [Display(Name = "Tip Aroma")]
-        [RegularExpression(@"^[A-Z]+[a-z\s]*$", ErrorMessage = "Denumirea aromei trebuie să înceapă cu majusculă și să aibă o lungime minimă de caractere 3")]
+        [RegularExpression(@"^[A-ZĂÎȘȚ]+[a-zăîșț\s]*$", ErrorMessage = "Denumirea aromei trebuie să înceapă cu majusculă și să aibă o lungime minimă de caractere 3")]
         [StringLength(70, MinimumLength = 3)]
         public string DenumireAroma { get; set; }
 

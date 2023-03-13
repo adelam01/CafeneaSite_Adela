@@ -4,17 +4,33 @@
 
 namespace CafeneaSite.Migrations
 {
-    public partial class AllAtOnce : Migration
+    public partial class All : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Membru",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nume = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    Prenume = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Telefon = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Membru", x => x.ID);
+                });
+
             migrationBuilder.CreateTable(
                 name: "TipAroma",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DenumireAroma = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    DenumireAroma = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,7 +43,7 @@ namespace CafeneaSite.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DenumireBoabe = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    DenumireBoabe = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -40,7 +56,7 @@ namespace CafeneaSite.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Tip = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Tip = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,7 +69,7 @@ namespace CafeneaSite.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DenumireLapte = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    DenumireLapte = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -66,7 +82,7 @@ namespace CafeneaSite.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DenumireTopping = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    DenumireTopping = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -84,7 +100,6 @@ namespace CafeneaSite.Migrations
                     TipBoabeID = table.Column<int>(type: "int", nullable: true),
                     TipLapteID = table.Column<int>(type: "int", nullable: true),
                     TipAromaID = table.Column<int>(type: "int", nullable: true),
-                    TipToppingID = table.Column<int>(type: "int", nullable: true),
                     Pret = table.Column<decimal>(type: "decimal(6,2)", nullable: false)
                 },
                 constraints: table =>
@@ -110,11 +125,32 @@ namespace CafeneaSite.Migrations
                         column: x => x.TipLapteID,
                         principalTable: "TipLapte",
                         principalColumn: "ID");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CafeaTipuriTopping",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CafeaID = table.Column<int>(type: "int", nullable: false),
+                    TipToppingID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CafeaTipuriTopping", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Cafea_TipTopping_TipToppingID",
+                        name: "FK_CafeaTipuriTopping_Cafea_CafeaID",
+                        column: x => x.CafeaID,
+                        principalTable: "Cafea",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CafeaTipuriTopping_TipTopping_TipToppingID",
                         column: x => x.TipToppingID,
                         principalTable: "TipTopping",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -138,15 +174,29 @@ namespace CafeneaSite.Migrations
                 column: "TipLapteID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cafea_TipToppingID",
-                table: "Cafea",
+                name: "IX_CafeaTipuriTopping_CafeaID",
+                table: "CafeaTipuriTopping",
+                column: "CafeaID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CafeaTipuriTopping_TipToppingID",
+                table: "CafeaTipuriTopping",
                 column: "TipToppingID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "CafeaTipuriTopping");
+
+            migrationBuilder.DropTable(
+                name: "Membru");
+
+            migrationBuilder.DropTable(
                 name: "Cafea");
+
+            migrationBuilder.DropTable(
+                name: "TipTopping");
 
             migrationBuilder.DropTable(
                 name: "TipAroma");
@@ -159,9 +209,6 @@ namespace CafeneaSite.Migrations
 
             migrationBuilder.DropTable(
                 name: "TipLapte");
-
-            migrationBuilder.DropTable(
-                name: "TipTopping");
         }
     }
 }

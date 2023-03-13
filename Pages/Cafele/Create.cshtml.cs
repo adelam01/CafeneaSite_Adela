@@ -9,11 +9,12 @@ using CafeneaSite.Data;
 using CafeneaSite.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace CafeneaSite.Pages.Cafele
 {
     [Authorize(Roles = "Admin")]
-    public class CreateModel : PageModel
+    public class CreateModel : CafeaTipuriToppingPageModel
     {
         private readonly CafeneaSite.Data.CafeneaSiteContext _context;
 
@@ -64,21 +65,42 @@ namespace CafeneaSite.Pages.Cafele
             });
             ViewData["TipToppingID"] = new SelectList(listaTipTopping, "ID", "DenumireTopping");
 
+            var cafea = new Cafea();
+            cafea.CafeaTipuriTopping = new List<CafeaTipuriTopping>();
+            PopulateToppingAtribuitCafeleiData(_context, cafea);
+
+
             return Page();
         }
 
         [BindProperty]
         public Cafea Cafea { get; set; }
-        
+
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string[] selectedToppings)
         {
+            var newCafea = new Cafea();
+            if (selectedToppings != null)
+            {
+                newCafea.CafeaTipuriTopping = new List<CafeaTipuriTopping>();
+                foreach (var cat in selectedToppings)
+                {
+                    var catToAdd = new CafeaTipuriTopping
+                    {
+                        TipToppingID = int.Parse(cat)
+                    };
+                    newCafea.CafeaTipuriTopping.Add(catToAdd);
+                }
+            }
 
+            Cafea.CafeaTipuriTopping = newCafea.CafeaTipuriTopping;
             _context.Cafea.Add(Cafea);
             await _context.SaveChangesAsync();
-
             return RedirectToPage("./Index");
+
+            PopulateToppingAtribuitCafeleiData(_context, newCafea);
+            return Page();
         }
     }
 }

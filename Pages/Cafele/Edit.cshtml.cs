@@ -15,7 +15,7 @@ namespace CafeneaSite.Pages.Cafele
 {
     [Authorize(Roles = "Admin")]
 
-    public class EditModel : PageModel
+    public class EditModel : CafeaTipuriToppingPageModel
     {
         private readonly CafeneaSite.Data.CafeneaSiteContext _context;
 
@@ -39,9 +39,13 @@ namespace CafeneaSite.Pages.Cafele
                 .Include(b => b.TipBoabe)
                 .Include(b => b.TipLapte)
                 .Include(b => b.TipAroma)
-                .Include(b => b.TipTopping)
+                .Include(b => b.CafeaTipuriTopping)
+                .ThenInclude(b => b.TipTopping)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ID == id);
+
+
+            PopulateToppingAtribuitCafeleiData(_context, Cafea);
 
             if (Cafea == null)
             {
@@ -93,7 +97,7 @@ namespace CafeneaSite.Pages.Cafele
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int? id, string[] selectedToppings)
         {
             if (id == null)
             {
@@ -105,7 +109,8 @@ namespace CafeneaSite.Pages.Cafele
                 .Include(i => i.TipBoabe)
                 .Include(i => i.TipLapte) 
                 .Include(i => i.TipAroma)
-                .Include(i => i.TipTopping)
+                .Include(i => i.CafeaTipuriTopping)
+                .ThenInclude(i => i.TipTopping)
                 .FirstOrDefaultAsync(s => s.ID == id);
 
             if (cafeaActualizare == null)
@@ -117,13 +122,16 @@ namespace CafeneaSite.Pages.Cafele
             cafeaActualizare,
             "Cafea",
             i => i.DenumireCafea, i => i.TipCafeaID, i => i.TipBoabeID,
-            i => i.TipLapteID, i => i.TipAromaID, i => i.TipToppingID, i => i.Pret))
+            i => i.TipLapteID, i => i.TipAromaID, i => i.Pret))
             {
+                UpdateCafeaTipuriTopping(_context, selectedToppings, cafeaActualizare);
                 //cafeaActualizare(_context, cafeaActualizare);
                 await _context.SaveChangesAsync();
                 return RedirectToPage("./Index");
             }
 
+            UpdateCafeaTipuriTopping(_context, selectedToppings, cafeaActualizare);
+            PopulateToppingAtribuitCafeleiData(_context, cafeaActualizare);
 
             return Page();
         }

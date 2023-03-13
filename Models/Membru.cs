@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-//using System.Xml.Linq;    auzi da fa si crud
+using System.Xml.Linq;  
 
 namespace CafeneaSite.Models
 {
@@ -7,11 +7,11 @@ namespace CafeneaSite.Models
     {
         public int ID { get; set; }
 
-        [RegularExpression(@"^[A-Z]+[a-z\s]*$", ErrorMessage = "Numele trebuie să înceapă cu majusculă (ex: Pop) și să fie minim de 3 litere")]
+        [RegularExpression(@"^[A-ZĂÎȘȚ]+[a-zăîșț\s]*$", ErrorMessage = "Numele trebuie să înceapă cu majusculă (ex: Pop) și să fie minim de 3 litere")]
         [StringLength(30, MinimumLength = 3)]
         public string? Nume { get; set; }
 
-        [RegularExpression(@"^[A-Z]+[a-z\s]*$", ErrorMessage = "Prenumele trebuie să înceapă cu majusculă (ex: Mihai) și să fie minim de 3 litere.")]
+        [RegularExpression(@"^[A-ZĂÎȘȚ]+[a-zăîșț\s]*$", ErrorMessage = "Prenumele trebuie să înceapă cu majusculă (ex: Mihai) și să fie minim de 3 litere.")]
         [StringLength(30, MinimumLength = 3)]
         public string? Prenume { get; set; }
 

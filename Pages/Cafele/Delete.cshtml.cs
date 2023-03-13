@@ -38,7 +38,6 @@ namespace CafeneaSite.Pages.Cafele
                 .Include(c => c.TipBoabe)
                 .Include(c => c.TipLapte)
                 .Include(c => c.TipAroma)
-                .Include(c => c.TipTopping)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if (cafea == null)

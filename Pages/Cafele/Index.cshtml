@@ -41,8 +41,9 @@
                 @Html.DisplayNameFor(model => model.Cafea[0].TipAroma)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cafea[0].TipTopping)
+                @Html.DisplayNameFor(model => model.Cafea[0].CafeaTipuriTopping)
             </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.Cafea[0].Pret)
             </th>
@@ -74,9 +75,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.TipAroma.DenumireAroma)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TipTopping.DenumireTopping)
-            </td>
+                <td>
+                    @{
+                        foreach (var topping in item.CafeaTipuriTopping)
+                        {
+                            @topping.TipTopping.ID @: @topping.TipTopping.DenumireTopping <br />
+                        }
+                    }
+                </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.Pret)
             </td>

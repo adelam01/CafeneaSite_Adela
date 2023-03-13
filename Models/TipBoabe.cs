@@ -8,7 +8,7 @@ namespace CafeneaSite.Models
         public int ID { get; set; }
 
         [Display(Name = "Tip Boabe")]
-        [RegularExpression(@"^[A-Z]+[a-z\s]*$", ErrorMessage = "Denumirea boabelor trebuie să înceapă cu majusculă și să aibă o lungime minimă de caractere 3")]
+        [RegularExpression(@"^[A-ZĂÎȘȚ]+[a-zăîșț\s]*$", ErrorMessage = "Denumirea boabelor trebuie să înceapă cu majusculă și să aibă o lungime minimă de caractere 3")]
         [StringLength(70, MinimumLength = 3)]
         public string DenumireBoabe { get; set; }
 

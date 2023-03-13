@@ -25,11 +25,12 @@ namespace CafeneaSite.Pages.Cafele
         public IList<Cafea> Cafea { get; set; } = default!;
         public CafeaData CafeaD { get; set; }
         public int CafeaID { get; set; }
+        public int TipToppingID { get; set; }
 
         // PENTRU CAUTARE - SEARCH STRING
         public string CurrentFilter { get; set; }
 
-        public async Task OnGetAsync(int? id, string searchString)
+        public async Task OnGetAsync(int? id, string searchString, int? toppingID)
         {
             CafeaD = new CafeaData();
             CurrentFilter = searchString;
@@ -39,7 +40,10 @@ namespace CafeneaSite.Pages.Cafele
                 .Include(b => b.TipBoabe)
                 .Include(b => b.TipLapte)
                 .Include(b => b.TipAroma)
-                .Include(b => b.TipTopping)
+                .Include(b => b.CafeaTipuriTopping)
+                .ThenInclude(b => b.TipTopping)
+                .AsNoTracking()
+                .OrderBy(b => b.DenumireCafea) // ???
                 .ToListAsync();
 
 
@@ -50,18 +54,19 @@ namespace CafeneaSite.Pages.Cafele
                || s.TipBoabe.DenumireBoabe.Contains(searchString)
                || s.TipLapte.DenumireLapte.Contains(searchString)
                || s.TipAroma.DenumireAroma.Contains(searchString)
-               || s.TipTopping.DenumireTopping.Contains(searchString)
                || s.DenumireCafea.Contains(searchString));
             }
 
             if (id != null)
             {
                 CafeaID = id.Value;
-                Cafea Serviciu = CafeaD.Cafele
+                Cafea cafea = CafeaD.Cafele
                 .Where(i => i.ID == id.Value).Single();
+                CafeaD.TipTopping = cafea.CafeaTipuriTopping.Select(s => s.TipTopping);
+
             }
 
 
-            }
+        }
     }
 }

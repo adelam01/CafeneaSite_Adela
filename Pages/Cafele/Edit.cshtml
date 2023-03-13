@@ -52,13 +52,34 @@
                 <span asp-validation-for="Cafea.TipAromaID" class="text-danger"></span>
             </div>
 
-            <!--DROPDOWNLIST PENTRU TIP AROMA-->
             <div class="form-group">
-                <label asp-for="Cafea.TipToppingID" class="control-label">Tip Topping</label>
-                <select asp-for="Cafea.TipToppingID" class="form-control" asp-items="ViewBag.TipToppingID">
-                </select>
-                <span asp-validation-for="Cafea.TipToppingID" class="text-danger"></span>
-            </div>
+                <div class="table">
+                    <table>
+                        <tr>
+                            @{
+                                int cnt = 0;
+                                foreach (var cat in Model.AtribuireToppingDataList)
+                                {
+                                    if (cnt++ % 3 == 0)
+                                    {
+                                        @:</tr><tr>
+                                    }
+                                    @:<td>
+                                    <input type="checkbox"
+                                    name="selectedToppings"
+                                    value="@cat.TipToppingID"
+                                    @(Html.Raw(cat.Atribuire ?
+                                        "checked=\"checked\"" : "")) />
+                                        @cat.TipToppingID @: @cat.Denumire
+                                        @:</td>
+                                }
+                                @:</tr>
+                            }
+                            </table>
+                            </div>
+                            </div>
+
+         
 
             <div class="form-group">
                 <label asp-for="Cafea.Pret" class="control-label"></label>

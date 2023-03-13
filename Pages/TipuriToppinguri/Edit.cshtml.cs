@@ -8,12 +8,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CafeneaSite.Data;
 using CafeneaSite.Models;
-using Microsoft.AspNetCore.Authorization;
-using System.Data;
 
 namespace CafeneaSite.Pages.TipuriToppinguri
 {
-    [Authorize(Roles = "Admin")]
     public class EditModel : PageModel
     {
         private readonly CafeneaSite.Data.CafeneaSiteContext _context;

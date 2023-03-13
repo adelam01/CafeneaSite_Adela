@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CafeneaSite.Migrations.LibraryIdentity
 {
-    public partial class CreateIdentity : Migration
+    public partial class Library : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

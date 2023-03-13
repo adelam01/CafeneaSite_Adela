@@ -7,12 +7,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using CafeneaSite.Data;
 using CafeneaSite.Models;
-using Microsoft.AspNetCore.Authorization;
-using System.Data;
 
 namespace CafeneaSite.Pages.TipuriToppinguri
 {
-    [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {
         private readonly CafeneaSite.Data.CafeneaSiteContext _context;

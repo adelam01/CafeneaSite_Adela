@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CafeneaSite.Migrations.LibraryIdentity
 {
     [DbContext(typeof(LibraryIdentityContext))]
-    [Migration("20230313085052_CreateIdentity")]
-    partial class CreateIdentity
+    [Migration("20230313125309_Library")]
+    partial class Library
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
