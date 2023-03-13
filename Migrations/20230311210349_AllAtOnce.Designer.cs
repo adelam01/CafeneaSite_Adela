@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CafeneaSite.Migrations
 {
     [DbContext(typeof(CafeneaSiteContext))]
-    [Migration("20230311143934_TipTopping")]
-    partial class TipTopping
+    [Migration("20230311210349_AllAtOnce")]
+    partial class AllAtOnce
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

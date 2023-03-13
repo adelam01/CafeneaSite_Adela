@@ -67,6 +67,32 @@ namespace CafeneaSite.Migrations
                     b.ToTable("Cafea");
                 });
 
+            modelBuilder.Entity("CafeneaSite.Models.Membru", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nume")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Prenume")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Telefon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Membru");
+                });
+
             modelBuilder.Entity("CafeneaSite.Models.TipAroma", b =>
                 {
                     b.Property<int>("ID")

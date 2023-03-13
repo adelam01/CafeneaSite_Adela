@@ -25,5 +25,7 @@ namespace CafeneaSite.Data
         public DbSet<CafeneaSite.Models.TipAroma> TipAroma { get; set; }
 
         public DbSet<CafeneaSite.Models.TipTopping> TipTopping { get; set; }
+
+        public DbSet<CafeneaSite.Models.Membru> Membru { get; set; }
     }
 }

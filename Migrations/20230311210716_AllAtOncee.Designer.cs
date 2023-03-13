@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CafeneaSite.Migrations
 {
     [DbContext(typeof(CafeneaSiteContext))]
-    [Migration("20230311131625_TipBoabe")]
-    partial class TipBoabe
+    [Migration("20230311210716_AllAtOncee")]
+    partial class AllAtOncee
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,19 +39,51 @@ namespace CafeneaSite.Migrations
                     b.Property<decimal>("Pret")
                         .HasColumnType("decimal(6,2)");
 
+                    b.Property<int?>("TipAromaID")
+                        .HasColumnType("int");
+
                     b.Property<int?>("TipBoabeID")
                         .HasColumnType("int");
 
                     b.Property<int?>("TipCafeaID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("TipLapteID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TipToppingID")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("TipAromaID");
 
                     b.HasIndex("TipBoabeID");
 
                     b.HasIndex("TipCafeaID");
 
+                    b.HasIndex("TipLapteID");
+
+                    b.HasIndex("TipToppingID");
+
                     b.ToTable("Cafea");
+                });
+
+            modelBuilder.Entity("CafeneaSite.Models.TipAroma", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("DenumireAroma")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("TipAroma");
                 });
 
             modelBuilder.Entity("CafeneaSite.Models.TipBoabe", b =>
@@ -88,8 +120,46 @@ namespace CafeneaSite.Migrations
                     b.ToTable("TipCafea");
                 });
 
+            modelBuilder.Entity("CafeneaSite.Models.TipLapte", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("DenumireLapte")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("TipLapte");
+                });
+
+            modelBuilder.Entity("CafeneaSite.Models.TipTopping", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("DenumireTopping")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("TipTopping");
+                });
+
             modelBuilder.Entity("CafeneaSite.Models.Cafea", b =>
                 {
+                    b.HasOne("CafeneaSite.Models.TipAroma", "TipAroma")
+                        .WithMany("Cafele")
+                        .HasForeignKey("TipAromaID");
+
                     b.HasOne("CafeneaSite.Models.TipBoabe", "TipBoabe")
                         .WithMany("Cafele")
                         .HasForeignKey("TipBoabeID");
@@ -98,9 +168,28 @@ namespace CafeneaSite.Migrations
                         .WithMany("Cafele")
                         .HasForeignKey("TipCafeaID");
 
+                    b.HasOne("CafeneaSite.Models.TipLapte", "TipLapte")
+                        .WithMany("Cafele")
+                        .HasForeignKey("TipLapteID");
+
+                    b.HasOne("CafeneaSite.Models.TipTopping", "TipTopping")
+                        .WithMany("Cafele")
+                        .HasForeignKey("TipToppingID");
+
+                    b.Navigation("TipAroma");
+
                     b.Navigation("TipBoabe");
 
                     b.Navigation("TipCafea");
+
+                    b.Navigation("TipLapte");
+
+                    b.Navigation("TipTopping");
+                });
+
+            modelBuilder.Entity("CafeneaSite.Models.TipAroma", b =>
+                {
+                    b.Navigation("Cafele");
                 });
 
             modelBuilder.Entity("CafeneaSite.Models.TipBoabe", b =>
@@ -109,6 +198,16 @@ namespace CafeneaSite.Migrations
                 });
 
             modelBuilder.Entity("CafeneaSite.Models.TipCafea", b =>
+                {
+                    b.Navigation("Cafele");
+                });
+
+            modelBuilder.Entity("CafeneaSite.Models.TipLapte", b =>
+                {
+                    b.Navigation("Cafele");
+                });
+
+            modelBuilder.Entity("CafeneaSite.Models.TipTopping", b =>
                 {
                     b.Navigation("Cafele");
                 });
