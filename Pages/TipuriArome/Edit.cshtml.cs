@@ -51,6 +51,22 @@ namespace CafeneaSite.Pages.TipuriArome
                 return Page();
             }
 
+            // PENTRU IMAGINE -> transformam imaginea intr-un string de tipul base64-encoded
+            byte[] bytes = null;
+            if (TipAroma.AromaImg != null)
+            {
+                using (Stream fisier = TipAroma.AromaImg.OpenReadStream())
+                {
+                    using (BinaryReader br = new BinaryReader(fisier))
+                    {
+                        bytes = br.ReadBytes((Int32)fisier.Length);
+                    }
+
+                }
+                TipAroma.Imagine = Convert.ToBase64String(bytes, 0, bytes.Length);
+
+            }
+
             _context.Attach(TipAroma).State = EntityState.Modified;
 
             try

@@ -46,6 +46,22 @@ namespace CafeneaSite.Pages.TipuriCafele
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            // PENTRU IMAGINE -> transformam imaginea intr-un string de tipul base64-encoded
+            byte[] bytes = null;
+            if (TipCafea.CafeaImg != null)
+            {
+                using (Stream fisier = TipCafea.CafeaImg.OpenReadStream())
+                {
+                    using (BinaryReader br = new BinaryReader(fisier))
+                    {
+                        bytes = br.ReadBytes((Int32)fisier.Length);
+                    }
+
+                }
+                TipCafea.Imagine = Convert.ToBase64String(bytes, 0, bytes.Length);
+
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();

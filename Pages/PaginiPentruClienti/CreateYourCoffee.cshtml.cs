@@ -8,5 +8,10 @@ namespace CafeneaSite.Pages
         public void OnGet()
         {
         }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            return RedirectToPage("./CodQR");
+        }
     }
 }

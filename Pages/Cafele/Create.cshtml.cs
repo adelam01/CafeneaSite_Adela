@@ -13,7 +13,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CafeneaSite.Pages.Cafele
 {
-    [Authorize(Roles = "Admin")]
     public class CreateModel : CafeaTipuriToppingPageModel
     {
         private readonly CafeneaSite.Data.CafeneaSiteContext _context;
@@ -75,7 +74,7 @@ namespace CafeneaSite.Pages.Cafele
 
         [BindProperty]
         public Cafea Cafea { get; set; }
-
+        
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync(string[] selectedToppings)
@@ -98,9 +97,9 @@ namespace CafeneaSite.Pages.Cafele
             _context.Cafea.Add(Cafea);
             await _context.SaveChangesAsync();
             return RedirectToPage("./Index");
-
-            PopulateToppingAtribuitCafeleiData(_context, newCafea);
-            return Page();
-        }
+        
+        PopulateToppingAtribuitCafeleiData(_context, newCafea);
+        return Page();
     }
 }
+    }

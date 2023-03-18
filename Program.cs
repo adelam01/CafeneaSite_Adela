@@ -14,8 +14,10 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizeFolder("/PaginiPentruClienti");
+    options.Conventions.AuthorizeFolder("/Cafele");
     options.Conventions.AllowAnonymousToPage("/PaginiPentruClienti/About");
-    options.Conventions.AuthorizeFolder("/Cafele", "AdminPolicy");
+    options.Conventions.AllowAnonymousToPage("/PaginiPentruClienti/Reservation");
+    options.Conventions.AllowAnonymousToPage("/Cafele/Index");
     options.Conventions.AuthorizeFolder("/Membrii", "AdminPolicy");
     options.Conventions.AuthorizeFolder("/TipuriArome", "AdminPolicy");
     options.Conventions.AuthorizeFolder("/TipuriBoabe", "AdminPolicy");

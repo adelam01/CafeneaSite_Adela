@@ -13,8 +13,6 @@ using System.Data;
 
 namespace CafeneaSite.Pages.Cafele
 {
-    [Authorize(Roles = "Admin")]
-
     public class EditModel : CafeaTipuriToppingPageModel
     {
         private readonly CafeneaSite.Data.CafeneaSiteContext _context;

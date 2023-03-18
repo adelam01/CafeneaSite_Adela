@@ -127,6 +127,9 @@ namespace CafeneaSite.Migrations
                         .HasMaxLength(70)
                         .HasColumnType("nvarchar(70)");
 
+                    b.Property<string>("Imagine")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ID");
 
                     b.ToTable("TipAroma");
@@ -145,6 +148,9 @@ namespace CafeneaSite.Migrations
                         .HasMaxLength(70)
                         .HasColumnType("nvarchar(70)");
 
+                    b.Property<string>("Imagine")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ID");
 
                     b.ToTable("TipBoabe");
@@ -157,6 +163,9 @@ namespace CafeneaSite.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("Imagine")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tip")
                         .IsRequired()
@@ -181,6 +190,9 @@ namespace CafeneaSite.Migrations
                         .HasMaxLength(70)
                         .HasColumnType("nvarchar(70)");
 
+                    b.Property<string>("Imagine")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ID");
 
                     b.ToTable("TipLapte");
@@ -198,6 +210,9 @@ namespace CafeneaSite.Migrations
                         .IsRequired()
                         .HasMaxLength(70)
                         .HasColumnType("nvarchar(70)");
+
+                    b.Property<string>("Imagine")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 

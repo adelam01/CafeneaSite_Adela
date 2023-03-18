@@ -34,9 +34,20 @@ namespace CafeneaSite.Pages.TipuriArome
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid)
+            // PENTRU IMAGINE -> transformam imaginea intr-un string de tipul base64-encoded
+            byte[] bytes = null;
+            if (TipAroma.AromaImg != null)
             {
-                return Page();
+                using (Stream fisier = TipAroma.AromaImg.OpenReadStream())
+                {
+                    using (BinaryReader br = new BinaryReader(fisier))
+                    {
+                        bytes = br.ReadBytes((Int32)fisier.Length);
+                    }
+
+                }
+                TipAroma.Imagine = Convert.ToBase64String(bytes, 0, bytes.Length);
+
             }
 
             _context.TipAroma.Add(TipAroma);

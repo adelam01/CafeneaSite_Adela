@@ -11,13 +11,19 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="TipLapte.ID" />
             <div class="form-group">
                 <label asp-for="TipLapte.DenumireLapte" class="control-label"></label>
                 <input asp-for="TipLapte.DenumireLapte" class="form-control" />
                 <span asp-validation-for="TipLapte.DenumireLapte" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TipLapte.LapteImg" class="control-label"></label>
+                <input asp-for="TipLapte.LapteImg" class="form-control" />
+                <span asp-validation-for="TipLapte.LapteImg" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

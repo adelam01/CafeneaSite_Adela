@@ -11,13 +11,18 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="TipBoabe.ID" />
             <div class="form-group">
                 <label asp-for="TipBoabe.DenumireBoabe" class="control-label"></label>
                 <input asp-for="TipBoabe.DenumireBoabe" class="form-control" />
                 <span asp-validation-for="TipBoabe.DenumireBoabe" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipBoabe.BoabeImg" class="control-label"></label>
+                <input asp-for="TipBoabe.BoabeImg" class="form-control" />
+                <span asp-validation-for="TipBoabe.BoabeImg" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

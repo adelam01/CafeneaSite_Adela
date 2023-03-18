@@ -11,12 +11,18 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="TipAroma.DenumireAroma" class="control-label"></label>
                 <input asp-for="TipAroma.DenumireAroma" class="form-control" />
                 <span asp-validation-for="TipAroma.DenumireAroma" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TipAroma.AromaImg" class="control-label"></label>
+                <input asp-for="TipAroma.AromaImg" class="form-control" />
+                <span asp-validation-for="TipAroma.AromaImg" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

@@ -1,6 +1,92 @@
 ﻿@page
-@model CafeneaSite.Pages.CreateYourCoffeeModel
+@model CafeneaSite.Pages.Cafele.CreateModel
+
 @{
+    ViewData["Title"] = "Create Your Coffee";
 }
 
-<p>HEEEEIII</p>
+<h1>Create Your Coffee</h1>
+
+<h4>Tell your story with amazing coffee</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Cafea.DenumireCafea" class="control-label"></label>
+                <input asp-for="Cafea.DenumireCafea" class="form-control" />
+                <span asp-validation-for="Cafea.DenumireCafea" class="text-danger"></span>
+            </div>
+
+            <!--DROPDOWNLIST PENTRU TIP CAFEA-->
+            <div class="form-group">
+                <label asp-for="Cafea.TipCafeaID" class="control-label">Tip Cafea</label>
+                <select asp-for="Cafea.TipCafeaID" class="form-control" asp-items="ViewBag.TipCafeaID">
+                </select>
+                <span asp-validation-for="Cafea.TipCafeaID" class="text-danger"></span>
+            </div>
+
+            <!--DROPDOWNLIST PENTRU TIP BOABE-->
+            <div class="form-group">
+                <label asp-for="Cafea.TipBoabeID" class="control-label">Tip Boabe</label>
+                <select asp-for="Cafea.TipBoabeID" class="form-control" asp-items="ViewBag.TipBoabeID">
+                </select>
+                <span asp-validation-for="Cafea.TipBoabeID" class="text-danger"></span>
+            </div>
+
+            <!--DROPDOWNLIST PENTRU TIP LAPTE-->
+            <div class="form-group">
+                <label asp-for="Cafea.TipLapteID" class="control-label">Tip Lapte</label>
+                <select asp-for="Cafea.TipLapteID" class="form-control" asp-items="ViewBag.TipLapteID">
+                </select>
+                <span asp-validation-for="Cafea.TipLapteID" class="text-danger"></span>
+            </div>
+
+            <!--DROPDOWNLIST PENTRU TIP AROMA-->
+            <div class="form-group">
+                <label asp-for="Cafea.TipAromaID" class="control-label">Tip Aroma</label>
+                <select asp-for="Cafea.TipAromaID" class="form-control" asp-items="ViewBag.TipAromaID">
+                </select>
+                <span asp-validation-for="Cafea.TipAromaID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <div class="table">
+                    <table>
+                        <tr>
+                            @{
+                                int cnt = 0;
+                                foreach (var cat in Model.AtribuireToppingDataList)
+                                {
+                                    if (cnt++ % 3 == 0)
+                                    {
+                                        @:</tr><tr>
+                                    }
+                                    @:<td>
+                                    <input type="checkbox"
+                                    name="selectedToppings"
+                                    value="@cat.TipToppingID"
+                                    @(Html.Raw(cat.Atribuire ?
+                                        "checked=\"checked\"" : "")) />
+                                        @cat.TipToppingID @: @cat.Denumire
+                                        @:</td>
+                                }
+                                @:</tr>
+                            }
+                            </table>
+                            </div>
+                            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Cafea.Pret" class="control-label"></label>
+                <input asp-for="Cafea.Pret" class="form-control" />
+                <span asp-validation-for="Cafea.Pret" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

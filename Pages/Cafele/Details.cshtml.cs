@@ -12,7 +12,6 @@ using System.Data;
 
 namespace CafeneaSite.Pages.Cafele
 {
-    [Authorize(Roles = "Admin")]
 
     public class DetailsModel : PageModel
     {

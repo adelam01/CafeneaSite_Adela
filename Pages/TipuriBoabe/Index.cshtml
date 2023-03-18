@@ -16,6 +16,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.TipBoabe[0].DenumireBoabe)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipBoabe[0].DenumireBoabe)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -25,6 +28,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DenumireBoabe)
             </td>
+                <td>
+                    <img src="data:image/jpg;base64 , @item.Imagine" , width="210px" , height="140px" , style="border-radius:10px" />
+                </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |

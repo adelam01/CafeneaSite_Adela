@@ -43,6 +43,23 @@ namespace CafeneaSite.Pages.TipuriToppinguri
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+
+            // PENTRU IMAGINE -> transformam imaginea intr-un string de tipul base64-encoded
+            byte[] bytes = null;
+            if (TipTopping.ToppingImg != null)
+            {
+                using (Stream fisier = TipTopping.ToppingImg.OpenReadStream())
+                {
+                    using (BinaryReader br = new BinaryReader(fisier))
+                    {
+                        bytes = br.ReadBytes((Int32)fisier.Length);
+                    }
+
+                }
+                TipTopping.Imagine = Convert.ToBase64String(bytes, 0, bytes.Length);
+
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();
