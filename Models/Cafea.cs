@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 using System.Xml.Linq;
 
 namespace CafeneaSite.Models
@@ -39,6 +40,37 @@ namespace CafeneaSite.Models
 
         [Column(TypeName = "decimal(6, 2)")]
         public decimal Pret { get; set; }
+
+        //INCERC PENTRU QR
+        public string ToBase64String()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("DenumireCafea=");
+            sb.Append(Convert.ToBase64String(Encoding.UTF8.GetBytes(DenumireCafea)));
+            sb.Append("&");
+
+            sb.Append("TipCafeaID=");
+            sb.Append(TipCafeaID.HasValue ? Convert.ToBase64String(Encoding.UTF8.GetBytes(TipCafeaID.Value.ToString())) : "");
+            sb.Append("&");
+
+            sb.Append("TipBoabeID=");
+            sb.Append(TipBoabeID.HasValue ? Convert.ToBase64String(Encoding.UTF8.GetBytes(TipBoabeID.Value.ToString())) : "");
+            sb.Append("&");
+
+            sb.Append("TipLapteID=");
+            sb.Append(TipLapteID.HasValue ? Convert.ToBase64String(Encoding.UTF8.GetBytes(TipLapteID.Value.ToString())) : "");
+            sb.Append("&");
+
+            sb.Append("TipAromaID=");
+            sb.Append(TipAromaID.HasValue ? Convert.ToBase64String(Encoding.UTF8.GetBytes(TipAromaID.Value.ToString())) : "");
+            sb.Append("&");
+
+            sb.Append("Pret=");
+            sb.Append(Convert.ToBase64String(Encoding.UTF8.GetBytes(Pret.ToString())));
+
+            return sb.ToString();
+        }
 
     }
 }

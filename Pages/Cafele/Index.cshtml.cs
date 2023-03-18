@@ -9,9 +9,12 @@ using CafeneaSite.Data;
 using CafeneaSite.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using QRCoder;
+
 
 namespace CafeneaSite.Pages.Cafele
 {
+
     [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {
@@ -32,6 +35,7 @@ namespace CafeneaSite.Pages.Cafele
 
         public async Task OnGetAsync(int? id, string searchString, int? toppingID)
         {
+
             CafeaD = new CafeaData();
             CurrentFilter = searchString;
 

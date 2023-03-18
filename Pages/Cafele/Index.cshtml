@@ -1,4 +1,7 @@
 ﻿@page
+@using QRCoder
+@using IronBarCode
+@using System.Drawing
 @model CafeneaSite.Pages.Cafele.IndexModel
 
 @{
@@ -47,6 +50,8 @@
             <th>
                 @Html.DisplayNameFor(model => model.Cafea[0].Pret)
             </th>
+            <th>
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -77,15 +82,57 @@
             </td>
                 <td>
                     @{
+                        // OARE SA FAC FUNCTIE? SE INCETINESTE MULT PROCESUL
+                        // se initializeaza aici variabila, deoarece variabilele din ciclul for nu sunt vizibile inafara acesteia
+                        // in CafeaData vom pune datele care vor aparea pe codul QR
+
+                        var cafeaData = $"{item.DenumireCafea},{item.TipCafea.Tip},{item.TipBoabe.DenumireBoabe}, {item.TipLapte.DenumireLapte}, {item.TipAroma.DenumireAroma}";
+
                         foreach (var topping in item.CafeaTipuriTopping)
                         {
-                            @topping.TipTopping.ID @: @topping.TipTopping.DenumireTopping <br />
+                                    @topping.TipTopping.ID @: @topping.TipTopping.DenumireTopping <br />
+
+                            
+                            // aici punem informatiile care vrem sa le memoram in codul respectiv
+                            cafeaData = cafeaData + " , " + $"{topping.TipTopping.DenumireTopping}";
+
+                                     
+
                         }
                     }
                 </td>
             
             <td>
                 @Html.DisplayFor(modelItem => item.Pret)
+            </td>
+            <td>
+                @{
+                        // Se genereaza data care se va pune in imaginea QR
+                        var qrGenerator = new QRCodeGenerator();
+                        var qrCodeData = qrGenerator.CreateQrCode(cafeaData, QRCodeGenerator.ECCLevel.Q);
+                        //var qrCode = new QRCode(qrCodeData);
+                        var qrCode = new BitmapByteQRCode(qrCodeData);
+                        var qrCodeImage = qrCode.GetGraphic(2);
+                        var qrCodeDataUri = $"data:image/png;base64,{Convert.ToBase64String(qrCodeImage)}";
+                }
+                    @*@{
+                        // AICI NU SE PUNEAU TOPPINGURILE - AM MODIFICAT
+                        // OARE SA FAC FUNCTIE?
+                        // aici punem informatiile care vrem sa le memoram in codul respectiv
+                        var cafeaData = $"{item.DenumireCafea},{item.TipCafea.Tip},{item.TipBoabe.DenumireBoabe}, {item.TipLapte.DenumireLapte}, {item.TipAroma.DenumireAroma}";
+
+                        // Se genereaza data care se va pune in imaginea QR
+                        var qrGenerator = new QRCodeGenerator();
+                        var qrCodeData = qrGenerator.CreateQrCode(cafeaData, QRCodeGenerator.ECCLevel.Q);
+                        //var qrCode = new QRCode(qrCodeData);
+                        var qrCode = new BitmapByteQRCode(qrCodeData);
+                        var qrCodeImage = qrCode.GetGraphic(2);
+                        var qrCodeDataUri = $"data:image/png;base64,{Convert.ToBase64String(qrCodeImage)}";
+                    }*@
+
+                    <img src="@qrCodeDataUri" alt="QR code">
+
+
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
