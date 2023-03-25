@@ -1,6 +1,6 @@
 ﻿@page
+@using System.Drawing
 @model CafeneaSite.Pages.Cafele.CreateModel
-
 @{
     ViewData["Title"] = "Create";
 }
@@ -9,7 +9,175 @@
 
 <h4>Cafea</h4>
 <hr />
-<div class="row">
+
+<head>
+    <style>
+        .form-group-container {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1rem;
+        }
+
+            .form-group-container label {
+                margin-bottom: 0.5rem;
+            }
+
+            .form-group-container input,
+            .form-group-container select {
+                padding: 0.5rem;
+                font-size: 1rem;
+                border: 1px solid #ccc;
+                border-radius: 0.25rem;
+            }
+
+                .form-group-container input:focus,
+                .form-group-container select:focus {
+                    outline: none;
+                    border-color: #007bff;
+                    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+                }
+
+            .form-group-container .text-danger {
+                font-size: 0.875rem;
+                margin-top: 0.25rem;
+            }
+
+
+
+    </style>
+
+</head>
+<body>
+    <div>
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group-container">
+                <div class="form-group">
+                    <label asp-for="Cafea.DenumireCafea" class="control-label"></label>
+                    <input asp-for="Cafea.DenumireCafea" class="form-control" />
+                    <span asp-validation-for="Cafea.DenumireCafea" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!--RADIO BUTTON PENTRU TIP CAFEA-->
+            <div class="form-group">
+                <label asp-for="Cafea.TipCafeaID" class="control-label">Tip Cafea</label>
+                <br />
+                <div class="grid-container">
+
+                @foreach (var tipCafea in ViewBag.TipCafeaID)
+                {
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                
+                            <p>
+                            <input type="radio" asp-for="Cafea.TipCafeaID" class="form-check-input" value="@tipCafea.Value"/>@tipCafea.Text
+                        </label>
+                    </div>
+                }
+                <span asp-validation-for="Cafea.TipCafeaID" class="text-danger"></span>
+            </div>
+
+            <!--RADIO BUTTON PENTRU TIP BOABE-->
+            <div class="form-group">
+                <label asp-for="Cafea.TipBoabeID" class="control-label">Tip Boabe</label>
+                <br />
+                @foreach (var tipBoabe in ViewBag.TipBoabeID)
+                {
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <!--????-->
+                            @*<img src="data:image/jpg;base64, Cafea.TipBoabe.Imagine" , width="310px", height="240px", style="border-radius:10px" />
+                            <p>*@
+                            <input type="radio" asp-for="Cafea.TipBoabeID" class="form-check-input" value="@tipBoabe.Value" />@tipBoabe.Text
+                        </label>
+                    </div>
+                }
+                <span asp-validation-for="Cafea.TipBoabeID" class="text-danger"></span>
+            </div>
+
+            <!--RADIO BUTTON PENTRU TIP LAPTE-->
+            <div class="form-group">
+                <label asp-for="Cafea.TipLapteID" class="control-label">Tip Lapte</label>
+                <br />
+                @foreach (var tipLapte in ViewBag.TipLapteID)
+                {
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <!--????-->
+                            @*<img src="data:image/jpg;base64, Cafea.TipBoabe.Imagine" , width="310px", height="240px", style="border-radius:10px" />*@
+                            <input type="radio" asp-for="Cafea.TipLapteID" class="form-check-input" value="@tipLapte.Value" />@tipLapte.Text
+                        </label>
+                    </div>
+                }
+                <span asp-validation-for="Cafea.TipLapteID" class="text-danger"></span>
+            </div>
+
+            <!--RADIO BUTTON PENTRU TIP AROMA-->
+            <div class="form-group">
+                <label asp-for="Cafea.TipAromaID" class="control-label">Tip Aroma</label>
+                <br />
+                @foreach (var tipAroma in ViewBag.TipAromaID)
+                {
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                            <input type="radio" asp-for="Cafea.TipAromaID" class="form-check-input" value="@tipAroma.Value" />@tipAroma.Text
+                        </label>
+                    </div>
+                }
+                <span asp-validation-for="Cafea.TipAromaID" class="text-danger"></span>
+            </div>
+    
+    <div class="form-group">
+        <label asp-for="Cafea.TipAromaID" class="control-label">Topping</label>
+                    <table>
+                        <tr>
+                            @{
+                                int cnt = 0;
+                                foreach (var cat in Model.AtribuireToppingDataList)
+                                {
+                                    if (cnt++ % 3 == 0)
+                                    {
+                                        @:</tr><tr>
+                                    }
+                                    @:<td>
+                                    <input type="checkbox"
+                                    name="selectedToppings"
+                                    value="@cat.TipToppingID"
+                                    @(Html.Raw(cat.Atribuire ?
+                                        "checked=\"checked\"" : "")) />
+                                        @cat.TipToppingID @: @cat.Denumire
+                                        @:</td>
+                                }
+                                @:</tr>
+                            }
+                            </table>
+                            </div>
+
+                            <div class="form-group-container">
+                <div class="form-group">
+                    <label asp-for="Cafea.Pret" class="control-label"></label>
+                    <input asp-for="Cafea.Pret" class="form-control" />
+                    <span asp-validation-for="Cafea.Pret" class="text-danger"></span>
+                </div>
+
+                            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+
+
+</form>
+    </div>
+</body>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+@*
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+*@
+@*<div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -93,7 +261,7 @@
 
 <div>
     <a asp-page="Index">Back to List</a>
-</div>
+</div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

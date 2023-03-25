@@ -28,11 +28,12 @@ namespace CafeneaSite.Pages.Cafele
             var listaTipCafea = _context.TipCafea.Select(x => new
             {
                 x.ID,
-                x.Tip
+                x.Tip,
+                x.Imagine
             });
-            ViewData["TipCafeaID"] = new SelectList(listaTipCafea, "ID", "Tip");
+            ViewData["TipCafeaID"] = new SelectList(listaTipCafea, "ID", "Tip", "Imagine");
 
-            // POPULARE VIEWDATA - TIP CAFEA
+            // POPULARE VIEWDATA - TIP BOABE
             var listaTipBoabe = _context.TipBoabe.Select(x => new
             {
                 x.ID,

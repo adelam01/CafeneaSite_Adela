@@ -1,4 +1,4 @@
-﻿@page
+﻿@page 
 @using QRCoder
 @using IronBarCode
 @using System.Drawing
@@ -15,14 +15,14 @@
 </p>
 
 <form asp-page="./Index" method="get">
- <div class="form-actions no-color">
-     <p>
-         Căutați cafeaua după un anumi criteriu dorit:
-         <input type="text" name="SearchString" value="@Model.CurrentFilter" />
-         <input type="submit" value="Search" class="btn btn-primary" /> |
-         <a asp-page="./Index">Revenire la lista întreagă</a>
-     </p>
-     </div>
+    <div class="form-actions no-color">
+        <p>
+            Căutați cafeaua după un anumi criteriu dorit:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Revenire la lista întreagă</a>
+        </p>
+    </div>
 </form>
 
 <table class="table">
@@ -46,7 +46,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Cafea[0].CafeaTipuriTopping)
             </th>
-            
+
             <th>
                 @Html.DisplayNameFor(model => model.Cafea[0].Pret)
             </th>
@@ -56,30 +56,30 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ( var item in Model.CafeaD.Cafele)
+        @foreach (var item in Model.CafeaD.Cafele)
         {
             string selectedRow = "";
-            if(item.ID == Model.CafeaID)
+            if (item.ID == Model.CafeaID)
             {
                 selectedRow = "table-success";
             }
 
-        <tr class="@selectedRow">
-            <td>
-                @Html.DisplayFor(modelItem => item.DenumireCafea)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TipCafea.Tip)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TipBoabe.DenumireBoabe)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TipLapte.DenumireLapte)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TipAroma.DenumireAroma)
-            </td>
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.DenumireCafea)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipCafea.Tip)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipBoabe.DenumireBoabe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipLapte.DenumireLapte)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipAroma.DenumireAroma)
+                </td>
                 <td>
                     @{
                         // OARE SA FAC FUNCTIE? SE INCETINESTE MULT PROCESUL
@@ -90,23 +90,23 @@
 
                         foreach (var topping in item.CafeaTipuriTopping)
                         {
-                                    @topping.TipTopping.ID @: @topping.TipTopping.DenumireTopping <br />
+                            @topping.TipTopping.ID @: @topping.TipTopping.DenumireTopping <br />
 
-                            
+
                             // aici punem informatiile care vrem sa le memoram in codul respectiv
                             cafeaData = cafeaData + " , " + $"{topping.TipTopping.DenumireTopping}";
 
-                                     
+
 
                         }
                     }
                 </td>
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.Pret)
-            </td>
-            <td>
-                @{
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pret)
+                </td>
+                <td>
+                    @{
                         // Se genereaza data care se va pune in imaginea QR
                         var qrGenerator = new QRCodeGenerator();
                         var qrCodeData = qrGenerator.CreateQrCode(cafeaData, QRCodeGenerator.ECCLevel.Q);
@@ -114,32 +114,18 @@
                         var qrCode = new BitmapByteQRCode(qrCodeData);
                         var qrCodeImage = qrCode.GetGraphic(2);
                         var qrCodeDataUri = $"data:image/png;base64,{Convert.ToBase64String(qrCodeImage)}";
-                }
-                    @*@{
-                        // AICI NU SE PUNEAU TOPPINGURILE - AM MODIFICAT
-                        // OARE SA FAC FUNCTIE?
-                        // aici punem informatiile care vrem sa le memoram in codul respectiv
-                        var cafeaData = $"{item.DenumireCafea},{item.TipCafea.Tip},{item.TipBoabe.DenumireBoabe}, {item.TipLapte.DenumireLapte}, {item.TipAroma.DenumireAroma}";
-
-                        // Se genereaza data care se va pune in imaginea QR
-                        var qrGenerator = new QRCodeGenerator();
-                        var qrCodeData = qrGenerator.CreateQrCode(cafeaData, QRCodeGenerator.ECCLevel.Q);
-                        //var qrCode = new QRCode(qrCodeData);
-                        var qrCode = new BitmapByteQRCode(qrCodeData);
-                        var qrCodeImage = qrCode.GetGraphic(2);
-                        var qrCodeDataUri = $"data:image/png;base64,{Convert.ToBase64String(qrCodeImage)}";
-                    }*@
-
+                    }
+                    
                     <img src="@qrCodeDataUri" alt="QR code">
 
 
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

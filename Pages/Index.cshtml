@@ -3,3 +3,168 @@
 @{
     ViewData["Title"] = "Home page";
 }
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--JS pentru CITESTE MAI MULT/CITESTE MAI PUTIN-->
+    <script src="~/JS/index.js"></script>
+
+    <!--CSS pentru BOOTSTRAP-->
+    <link rel="stylesheet" href="~/cssBootstrap/bootstrap.min.css">
+
+    <!--CSS pentru EFECTUL DE MISCARE-->
+    <link rel="stylesheet" href="~/CSS/aos.css" />
+
+    <!--CSS si JS pentru IMAGINI LIGHT BOX-->
+    <script src="~/JS/jquery.min.js"></script>
+    <link rel="stylesheet" href="~/CSS/jquery.fancybox.min.css" />
+    <script src="~/JS/jquery.fancybox.min.js"></script>
+
+    <!--CSS ul specific paginii-->
+    <link rel="stylesheet" href="~/CSS/style.css">
+
+    <title>Acasă</title>
+    <style>
+        .banner-image{
+            background-image: url("imagini/fundal3.jpg");
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!--SECTIUNEA BANNER-->
+    <div class="banner-image w-100 vh-100 d-flex justify-content-center align-items-center">
+        <div class="content text-center" data-aos="fade-up" data-aos-duration="2000">
+            <p class="text-white">━ Bine ați venit la HugAMug ━</p>
+            <h1 class="text-white">
+                Unde fiecare cafea își spune povestea
+            </h1>
+            <span class="text-white">
+                Creează-ți propria cafea cu ingrediente
+                atent selectate, urmând următorii pași creați de noi
+            </span>
+            <p>
+            <p>
+                <button style="border-radius:10px">
+                    <a href="#" class="text-dark" style="text-decoration: none" style="font-size:600px">
+                        Crează-ți cafeaua
+                    </a>
+                </button>
+        </div>
+    </div>
+
+
+    <!--SECTIUNEA DESPRE NOI-->
+
+    <div class="container my-5" id="about">
+        <div class="row">
+            <div class="col-sm-12 col-md-5">
+                <img src="imagini/about.jpg" alt="">
+            </div>
+            <div class="col-sm-12 col-md-5">
+                <h1 class="display-4 fw-semibold">Povestea noastră</h1>
+                <p>
+                    vagdc cbsdcvsgd bcshbdusbc dcbsdcjb dbvsibdv fbvbsu vbfvuvcsv bdsucu bdcusdb cbsducd dsubcd
+                    cvbhjfd bdhsbcdh cbsdbchd vbdhbvjhc cbdhs bchdbh bdcsbd bcsdibc bcsdic bcdsib cbdsi cbsdbc
+                    cvbhjfd bdhsbcdh cbsdbchd vbdhbvjhc cbdhs bchdbh bdcsbd bcsdibc bcsdic bcdsib cbdsi cbsdbc
+                </p>
+                <div id="text ascuns" style="display:none;">
+                    <span id="puncte">...</span>
+                    <p>
+                        vagdc cbsdcvsgd bcshbdusbc dcbsdcjb dbvsibdv fbvbsu vbfvuvcsv bdsucu bdcusdb cbsducd dsubcd
+                        cvbhjfd bdhsbcdh cbsdbchd vbdhbvjhc cbdhs bchdbh bdcsbd bcsdibc bcsdic bcdsib cbdsi cbsdbc
+                        cvbhjfd bdhsbcdh cbsdbchd vbdhbvjhc cbdhs bchdbh bdcsbd bcsdibc bcsdic bcdsib cbdsi cbsdbc
+                    </p>
+                </div>
+                <button id="read-more-btn" class="btn btn-brand" onclick="afiseaza();">
+                    Citește mai
+                    mult
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!--SECTIUNEA ATMOSFERA NOASTRA-->
+    <section id="portofolio" class="section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <div class="section-title">
+                        <h1 class="display-4 fw-semibold">Atmosfera noastră</h1>
+                        <div class="line"></div>
+                        <p>dcsf csdvhg bdhsj nsjdkc</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <!--Imagine 1-->
+                    <div class="portofolio-item image-zoom">
+                        <div class="image-zoom-wrapper">
+                            <img src="imagini/img1.jpg" alt="cafea">
+                        </div>
+                        <a href="imagini/img1.jpg" data-fancybox="gallery" class="iconbox">
+                            <img class="iconita"
+                                 src="imagini/cauta.png" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <!--Imagine 2-->
+                    <div class="portofolio-item image-zoom">
+                        <div class="image-zoom-wrapper">
+                            <img src="imagini/img2.jpg" alt="cafea">
+                        </div>
+                        <a href="imagini/img2.jpg" data-fancybox="gallery" class="iconbox">
+                            <img class="iconita"
+                                 src="imagini/cauta.png" alt="">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <!--Imagine 5-->
+                    <div class="portofolio-item image-zoom">
+                        <div class="image-zoom-wrapper">
+                            <img src="imagini/img5.jpg" alt="cafea">
+                        </div>
+                        <a href="imagini/img5.jpg" data-fancybox="gallery" class="iconbox">
+                            <img class="iconita"
+                                 src="imagini/cauta.png" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <script src="jsBootstrap/bootstrap.bundle.min.js"></script>
+    <script>
+        var nav = document.querySelector('nav');
+
+        window.addEventListener('scroll', function () {
+            if (window.pageYOffset > 100) {
+                nav.classList.add('bg-dark', 'shadow');
+            }
+            else {
+                nav.classList.remove('bg-dark', 'shadow');
+            }
+        })
+    </script>
+    <script src="~/JS/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <script src="~/JS/fancybox.umd.js"></script>
+</body>
+
+</html>
