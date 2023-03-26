@@ -4,7 +4,7 @@
 
 namespace CafeneaSite.Migrations
 {
-    public partial class All : Migration
+    public partial class all : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,7 +30,8 @@ namespace CafeneaSite.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DenumireAroma = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false)
+                    DenumireAroma = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    Imagine = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -43,7 +44,8 @@ namespace CafeneaSite.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DenumireBoabe = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false)
+                    DenumireBoabe = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    Imagine = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -56,7 +58,8 @@ namespace CafeneaSite.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Tip = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false)
+                    Tip = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    Imagine = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -69,7 +72,8 @@ namespace CafeneaSite.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DenumireLapte = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false)
+                    DenumireLapte = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    Imagine = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -82,7 +86,8 @@ namespace CafeneaSite.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DenumireTopping = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false)
+                    DenumireTopping = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    Imagine = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

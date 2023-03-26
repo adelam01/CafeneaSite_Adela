@@ -10,6 +10,14 @@ using CafeneaSite.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
 using Microsoft.EntityFrameworkCore;
+using QRCoder;
+using Newtonsoft.Json;
+using System.Drawing;
+using Microsoft.Extensions.Hosting;
+using SendGrid.Helpers.Mail;
+using SendGrid;
+using System.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace CafeneaSite.Pages.Cafele
 {
@@ -17,9 +25,12 @@ namespace CafeneaSite.Pages.Cafele
     {
         private readonly CafeneaSite.Data.CafeneaSiteContext _context;
 
-        public CreateModel(CafeneaSite.Data.CafeneaSiteContext context)
+        public IConfiguration Configuration { get; }
+
+        public CreateModel(CafeneaSite.Data.CafeneaSiteContext context, IConfiguration configuration)
         {
             _context = context;
+            Configuration = configuration;
         }
 
         public IActionResult OnGet()
@@ -75,9 +86,30 @@ namespace CafeneaSite.Pages.Cafele
 
         [BindProperty]
         public Cafea Cafea { get; set; }
-        
+
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+        //static async Task SendEmailAsync(string recipientEmail, byte[] qrCodeImage)
+        //{
+        //    var apiKey = "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";
+        //    var client = new SendGridClient(apiKey);
+        //    var from = new EmailAddress("adela.maria1920@gmail.com", "Kovacs Adela");
+        //    var to = new EmailAddress("adela.maria1920@gmail.com", "Kovacs Adela");
+        //    var subject = "QR Code Image";
+        //    var htmlContent = "Here's your QR code image:";
+        //    var plainTextContent = "Here's your QR code image:";
+        //    //var attachment = new Attachment
+        //    //{
+        //    //    Content = Convert.ToBase64String(qrCodeImage),
+        //    //    Filename = "qr-code.png",
+        //    //    Type = "image/png",
+        //    //    Disposition = "inline",
+        //    //    ContentId = "qr-code"
+        //    //};
+        //    var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+        //    //msg.AddAttachment(attachment);
+        //    var response = await client.SendEmailAsync(msg);
+        //}
         public async Task<IActionResult> OnPostAsync(string[] selectedToppings)
         {
             var newCafea = new Cafea();
@@ -93,6 +125,55 @@ namespace CafeneaSite.Pages.Cafele
                     newCafea.CafeaTipuriTopping.Add(catToAdd);
                 }
             }
+
+            // Generare QR code
+            var qrData = new
+            {
+                Cafea.DenumireCafea,
+                Cafea.TipCafeaID,
+                Cafea.TipBoabeID,
+                Cafea.TipLapteID,
+                Cafea.TipAromaID,
+                Cafea.Pret
+            };
+            string qrPayload = JsonConvert.SerializeObject(qrData);
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(qrPayload, QRCodeGenerator.ECCLevel.Q);
+            var qrCode = new BitmapByteQRCode(qrCodeData);
+            var qrCodeImage = qrCode.GetGraphic(2);
+
+            //Ca sa salvez imaginea pe serverul meu
+            string qrCodePath = "C:\\Users\\Adela-Maria KOVACS\\Desktop\\LICENȚĂ\\Aplicatie Web  Cafenea - SEARCH STRING\\QR_CODE" + Cafea.ID + ".png";
+            System.IO.File.WriteAllBytes(qrCodePath, qrCodeImage);
+
+            //// Send the email to the user
+            //var user = await _context.Membru.FirstOrDefaultAsync(u => u.Email == Membru.Nume);
+            //await SendEmailAsync(user.Email, qrCodeImage);
+
+            // Save the path to the QR code image in the Cafea object
+            Cafea.QrCodeURL = qrCodePath;
+
+            var apiKey = "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";
+            var client = new SendGridClient(apiKey);
+            var from = new EmailAddress("adela.maria1920@gmail.com", "Kovacs Adela");
+            var to = new EmailAddress("adela.maria1920@gmail.com", "Kovacs Adela");
+            var subject = "QR Code Image";
+            var htmlContent = "Here's your QR code image:";
+            var plainTextContent = "Here's your QR code image:";
+            //var attachment = new Attachment
+            //{
+            //    Content = Convert.ToBase64String(qrCodeImage),
+            //    Filename = "qr-code.png",
+            //    Type = "image/png",
+            //    Disposition = "inline",
+            //    ContentId = "qr-code"
+            //};
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+            //msg.AddAttachment(attachment);
+            var response = await client.SendEmailAsync(msg);
+
+
+
 
             Cafea.CafeaTipuriTopping = newCafea.CafeaTipuriTopping;
             _context.Cafea.Add(Cafea);

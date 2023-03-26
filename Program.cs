@@ -27,6 +27,8 @@ builder.Services.AddRazorPages(options =>
 
 });
 
+
+
 builder.Services.AddDbContext<CafeneaSiteContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CafeneaSiteContext") ?? throw new InvalidOperationException("Connection string 'CafeneaSiteContext' not found.")));
 

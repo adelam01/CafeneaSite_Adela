@@ -41,5 +41,7 @@ namespace CafeneaSite.Models
         [Column(TypeName = "decimal(6, 2)")]
         public decimal Pret { get; set; }
 
+        public string? QrCodeURL { get; set; }
+
     }
 }

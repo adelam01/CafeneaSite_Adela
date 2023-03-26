@@ -10,12 +10,11 @@ using CafeneaSite.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
 using QRCoder;
+using System.IO.MemoryMappedFiles;
 
 
 namespace CafeneaSite.Pages.Cafele
 {
-
-    [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {
         private readonly CafeneaSite.Data.CafeneaSiteContext _context;

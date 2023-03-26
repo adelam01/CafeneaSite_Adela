@@ -81,23 +81,11 @@
                     @Html.DisplayFor(modelItem => item.TipAroma.DenumireAroma)
                 </td>
                 <td>
-                    @{
-                        // OARE SA FAC FUNCTIE? SE INCETINESTE MULT PROCESUL
-                        // se initializeaza aici variabila, deoarece variabilele din ciclul for nu sunt vizibile inafara acesteia
-                        // in CafeaData vom pune datele care vor aparea pe codul QR
-
-                        var cafeaData = $"{item.DenumireCafea},{item.TipCafea.Tip},{item.TipBoabe.DenumireBoabe}, {item.TipLapte.DenumireLapte}, {item.TipAroma.DenumireAroma}";
+                   @{
 
                         foreach (var topping in item.CafeaTipuriTopping)
                         {
                             @topping.TipTopping.ID @: @topping.TipTopping.DenumireTopping <br />
-
-
-                            // aici punem informatiile care vrem sa le memoram in codul respectiv
-                            cafeaData = cafeaData + " , " + $"{topping.TipTopping.DenumireTopping}";
-
-
-
                         }
                     }
                 </td>
@@ -105,21 +93,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Pret)
                 </td>
-                <td>
-                    @{
-                        // Se genereaza data care se va pune in imaginea QR
-                        var qrGenerator = new QRCodeGenerator();
-                        var qrCodeData = qrGenerator.CreateQrCode(cafeaData, QRCodeGenerator.ECCLevel.Q);
-                        //var qrCode = new QRCode(qrCodeData);
-                        var qrCode = new BitmapByteQRCode(qrCodeData);
-                        var qrCodeImage = qrCode.GetGraphic(2);
-                        var qrCodeDataUri = $"data:image/png;base64,{Convert.ToBase64String(qrCodeImage)}";
-                    }
-                    
-                    <img src="@qrCodeDataUri" alt="QR code">
-
-
-                </td>
+                
                 <td>
                     <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                     <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
